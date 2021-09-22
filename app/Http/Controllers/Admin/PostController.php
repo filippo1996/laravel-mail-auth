@@ -49,6 +49,10 @@ class PostController extends Controller
     {
         $data = $request->validated();
 
+        // Salviamo l'immaggine nella storage/covers e memoriziamo il path immagine nell'array $data
+        // Per momorizzarlo nel database
+        $data['cover'] = $request->file('cover')->store('covers');
+
         /* la facciamo direttamente sulla classe request StorePostRequest
         $data['slug'] = Str::slug($data['title'], '-');
         */

@@ -10,7 +10,7 @@
     @include('admin.partials.errors-request')
     <!-- end show errors request -->
 
-    <form action="{{ route('posts.store') }}" method="post">
+    <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -46,6 +46,15 @@
         </div>
 
         @error('content')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+        <div class="mb-3">
+          <label class="form-label" for="customFile">Immagine da inserire nel post</label>
+          <input type="file" class="form-control" id="customFile" name="cover"/>
+        </div>
+
+        @error('cover')
           <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 

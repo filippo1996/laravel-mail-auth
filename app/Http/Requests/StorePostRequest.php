@@ -41,7 +41,8 @@ class StorePostRequest extends FormRequest
             'slug' => 'unique:posts',
             'content' => 'required|max:5000',
             'category_id' => 'bail|nullable|exists:categories,id',
-            'tags' => 'nullable'
+            'tags' => 'nullable',
+            'cover' => 'nullable|image'
         ];
     }
 }
