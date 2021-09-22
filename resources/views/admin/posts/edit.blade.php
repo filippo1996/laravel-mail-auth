@@ -10,7 +10,7 @@
     @include('admin.partials.errors-request')
     <!-- end show errors request -->
 
-    <form action="{{ route('posts.update', $post->id) }}" method="post">
+    <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <div class="mb-3">
@@ -50,6 +50,15 @@
             @enderror
 
         </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="customFile">Immagine da inserire nel post</label>
+          <input type="file" class="form-control" id="customFile" name="cover"/>
+        </div>
+
+        @error('cover')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         @foreach($tags as $id => $tag)
           <div class="form-check">

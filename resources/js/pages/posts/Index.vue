@@ -10,7 +10,7 @@
                     <a href="#" class="stretched-link">Continua a leggere</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
-                    <img class="bd-placeholder-img" width="200" src="https://www.ionos.it/digitalguide/fileadmin/DigitalGuide/Teaser/internet-programmiersprachen-t.jpg" :alt="post.title">
+                    <img class="bd-placeholder-img" width="200" :src="post.cover" :alt="post.title">
                 </div>
                 <div class="mb-2">
                     <span class="badge bg-warning text-dark" v-for="tag in post.tags" :key="tag.id">{{ tag.name }}</span>

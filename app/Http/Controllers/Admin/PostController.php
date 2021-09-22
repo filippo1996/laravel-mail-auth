@@ -10,6 +10,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -111,6 +112,11 @@ class PostController extends Controller
         $data = $request->validated();
         //$data['slug'] = Str::slug($data['title'],'-');
 
+        if($request->has('cover')){
+            $data['cover'] = $request->file('cover')->store('covers');
+            Storage::delete($post->getRawOriginal('cover'));
+        }
+
         $post->tags()->sync($data['tags'] ?? []);
 
         /*
@@ -137,6 +143,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        // eliminiamo l'immagine se è presente
+        Storage::delete($post->getRawOriginal('cover'));
+        
         // siccome abbiamo impostato sulla tabella post_tag onDelete('cascade)
         // non serve inserire il metodo $user->tags()->detach([1, 2, 3]);
         // perchè verrano eliminati automaticamente dalla tabella quando si elimina un post

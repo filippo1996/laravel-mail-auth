@@ -22,6 +22,7 @@ class Post extends Model
      * Get the category that owns the post.
      */
     public function category(){
+        
         return $this->belongsTo(Category::class);
     }
 
@@ -38,13 +39,15 @@ class Post extends Model
      */
     public function getCoverAttribute($value)
     {
+        $driver = env('FILESYSTEM_DRIVER');
+        $imgDefault = 'covers/cover-placeholder.jpeg';
 
-        if(Storage::disk('public')->exists($value)){
-            $value = Storage::disk('public')->url($value);
+        if(Storage::disk($driver)->exists($value)){
+            $value = Storage::disk($driver)->url($value);
         } else {
-            $value = Storage::disk('public')->url('covers/cover-placeholder.jpeg');
+            $value = Storage::disk($driver)->url($imgDefault);
         }
-        
+
         return $value;
     }
 
