@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Models\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\ContactForm;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -24,6 +26,7 @@ class ContactController extends Controller
         $resp = $contact->save();
         
         if($resp){
+            Mail::to($data['email'])->send(new ContactForm());
             $status['success'] = true;
         }
 

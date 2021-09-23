@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Contattaci</h1>
+    <div v-if="success" class="alert alert-success" role="alert">
+      A simple success alert—check it out!
+    </div>
     <form id="contact">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
@@ -29,7 +32,8 @@ export default {
       name: '',
       email: '',
       message: '',
-      url: 'api/contact'
+      url: 'api/contact',
+      success: false
     }
   },
   mounted(){
@@ -51,6 +55,7 @@ export default {
                 this.name = '';
                 this.email = '';
                 this.message = '';
+                this.success = true;
                 form.reset();
                 alert('messaggio inviato');
               }else{
